@@ -7,6 +7,7 @@ class RandomImgComponent {
     this.baseSize = this.viewWidth * 0.75 > this.viewHeight ? Math.floor(this.viewHeight / 3) : Math.floor(this.viewWidth / 4);
     this.imgSum = 12;
     this.imgAssignList = this.setImgOrder();
+    this.showImgIndex = 0;
     this.init();
   }
   init() {
@@ -41,6 +42,30 @@ class RandomImgComponent {
     imgAssignFlagObj[randomNum] = true;
     return randomNum;
   }
+  setImgStyle(imgIndex) {
+    var newImg = this.imgAssignList[imgIndex]['element'];
+    var imgPositionIndex = this.imgAssignList[imgIndex]['positionIndex'];
+    newImg.width = this.baseSize;
+    newImg.height = this.baseSize;
+    newImg.style.position = "absolute";
+    newImg.style.marginLeft = this.baseSize * (imgPositionIndex % 4);
+    newImg.style.marginTop = this.baseSize * Math.floor(imgPositionIndex / 4);
+  }
+  addImg() {
+    this.setImgStyle(this.showImgIndex);
+    var img = this.imgAssignList[this.showImgIndex]['element'];
+    this.boxElement.appendChild(img);
+    this.showImgIndex = this.showImgIndex + 1;
+    if (this.showImgIndex < this.imgSum) {
+      this.startRenderPhoto();
+    }
+  }
+  startRenderPhoto() {
+    setTimeout(()=>{
+      this.addImg();
+    }, 1000);
+  }
 }
 
 var showPicture = new RandomImgComponent();
+showPicture.startRenderPhoto();
