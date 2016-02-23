@@ -9,6 +9,7 @@ class RandomImgComponent {
     this.imgAssignList = this.setImgOrder();
     this.showImgIndex = 0;
     this.init();
+    this.mobileHandle();
   }
   init() {
     const boxElement = document.createElement('div');
@@ -59,6 +60,12 @@ class RandomImgComponent {
     if (this.showImgIndex < this.imgSum) {
       this.startRenderPhoto();
     }
+  }
+  mobileHandle() {
+    window.addEventListener("orientationchange", function() {
+      var scaleRatio = window.innerWidth / this.viewWidth;
+      document.getElementById('content').style.transform = 'scale(' + scaleRatio + ')';
+    });
   }
   startRenderPhoto() {
     setTimeout(()=>{
