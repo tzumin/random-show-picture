@@ -1,6 +1,8 @@
 "use strict";
 class RandomImgComponent {
   constructor() {
+    // http://www.html5rocks.com/en/tutorials/service-worker/introduction/
+    // better offline handle services
     this.imgElement = document.createElement('img');
     this.viewWidth = window.innerWidth;
     this.viewHeight = window.innerHeight;
